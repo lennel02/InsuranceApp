@@ -54,7 +54,7 @@ if smoker== 'yes':
 else:
     is_smoker = 0
     
-data = pd.read_csv("Darius/insurance_regression.csv")    
+data = pd.read_csv("insurance_regression.csv")    
     
 # Line chart
 load_chart(data[['age', 'bmi', 'children']], "line")  
