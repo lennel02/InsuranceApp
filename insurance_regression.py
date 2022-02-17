@@ -78,7 +78,7 @@ elif region == 'southwest':
 st.subheader("Predictions")
 
 # Loading the model
-filename = 'Darius/finalized_model.sav'
+filename = 'finalized_model.sav'
 loaded_model = joblib.load(filename)
 
 # [Age, BMI, Number of Children, is_female, is_smoker, is_from_NorthEast]
@@ -87,7 +87,7 @@ prediction = round(loaded_model.predict([[age, bmi, num_children, is_female, is_
 st.write(f"Suggested Insurance Price is: {prediction}")
 
 # Load data
-data = pd.read_csv("Darius/insurance_regression.csv")
+data = pd.read_csv("insurance_regression.csv")
 
 if st.checkbox("Show Graphs"):
     sns.pairplot(data[['age', 'bmi', 'children', 'smoker']], height=8, kind='reg', diag_kind='kde')
