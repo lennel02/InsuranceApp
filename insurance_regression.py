@@ -5,6 +5,24 @@ import joblib
 import os
 import seaborn as sns
 
+
+
+
+
+def load_chart(data, kind):
+    if kind == 'line':
+        st.write("Line Chart")
+        st.line_chart(data)
+    elif kind == 'area':
+        st.write("Area Chart")
+        st.area_chart(data)
+   
+    else:
+        st.write("Line Chart")
+        st.line_chart(data)
+
+
+
 st.title("Insurance Pricing App")
 st.write("From the insurance data, we built a machine learning model for pricing insurance claims.")
 
@@ -36,6 +54,14 @@ if smoker== 'yes':
 else:
     is_smoker = 0
     
+data = pd.read_csv("Darius/insurance_regression.csv")    
+    
+# Line chart
+load_chart(data[['age', 'bmi', 'children']], "line")  
+
+# Area chart
+load_chart(data[['age', 'bmi', 'children']], "area")   
+    
 # Region
 region = st.sidebar.selectbox("Region", ['northwest', 'northeast', 'southeast', 'southwest'])
 
@@ -52,7 +78,7 @@ elif region == 'southwest':
 st.subheader("Predictions")
 
 # Loading the model
-filename = 'finalized_model.sav'
+filename = 'Darius/finalized_model.sav'
 loaded_model = joblib.load(filename)
 
 # [Age, BMI, Number of Children, is_female, is_smoker, is_from_NorthEast]
@@ -61,7 +87,7 @@ prediction = round(loaded_model.predict([[age, bmi, num_children, is_female, is_
 st.write(f"Suggested Insurance Price is: {prediction}")
 
 # Load data
-data = pd.read_csv("insurance_regression.csv")
+data = pd.read_csv("Darius/insurance_regression.csv")
 
 if st.checkbox("Show Graphs"):
     sns.pairplot(data[['age', 'bmi', 'children', 'smoker']], height=8, kind='reg', diag_kind='kde')
